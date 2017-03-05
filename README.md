@@ -3,6 +3,10 @@ A fairly versatile turmite generator
 
 Uses opengl to simulate turmites.
 
+Screenshot (from experiment2.ini:
+
+![Golden spiral](https://raw.githubusercontent.com/calculuswhiz/turmite-sandbox/master/spiral.png)
+
 To use:
 - `make`
 - Then `./main [ini file]`. Choose an .ini file as input.
