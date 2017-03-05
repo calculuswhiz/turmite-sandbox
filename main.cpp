@@ -85,7 +85,7 @@ void update()
     {
         if((*it)->isDead())
             continue;
-        if((*it)->posx>=0 && (*it)->posy>=0 && (*it)->posx < GRIDW && (*it)->posy < GRIDW)
+        if((*it)->posx>=0 && (*it)->posy>=0 && (*it)->posx < GRIDW && (*it)->posy < GRIDH)
         {
             GLfloat inputmode = grid[(*it)->posy][(*it)->posx][0];
             GLfloat paintcolor = (GLfloat)(*it)->getWColor(inputmode);
