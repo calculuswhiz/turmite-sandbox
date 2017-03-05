@@ -22,6 +22,7 @@ using namespace std;
 
 vector<Automaton *> sandbox;
 int selector = 0;
+int maxselector = 0;
 GLfloat grid[GRIDH][GRIDW][3];
 
 bool initGL();
@@ -98,6 +99,16 @@ void update()
             (*it)->kill();
         }
     }
+    
+    // Don't touch originally loaded.
+    for(int i=sandbox.size()-1; i>=maxselector; i--)
+    {
+        if(sandbox[i]->isDead())
+        {
+            delete (sandbox[i]);
+            sandbox.erase(sandbox.begin()+i);
+        }
+    }
 }
 
 void runMainLoop( int val )
@@ -111,12 +122,28 @@ void runMainLoop( int val )
     glutTimerFunc( 1000 / FRAMESPEED, runMainLoop, val );
 }
 
+// Totally swiped this from StackOverflow:
+void renderText(float x, float y, const char* text) {
+    x/=GRIDW;
+    y/=GRIDH;
+    glRasterPos2f(x,y);
+    glutBitmapString(GLUT_BITMAP_8_BY_13, (const unsigned char*)text);
+    glRasterPos2f(0,0);
+}
+
 void display()
 {
     // glClearColor( 0, 0, 0, 1 );
     glClear( GL_COLOR_BUFFER_BIT );
     
     glDrawPixels( GRIDW, GRIDH, GL_RGB, GL_FLOAT, grid );
+    
+    char selectionbuf [255];
+    char speedbuf[32];
+    sprintf(selectionbuf, "Click will spawn: %s", sandbox[selector]->name.c_str());
+    sprintf(speedbuf, "Speed %d", FRAMESPEED);
+    renderText(0, 13, selectionbuf);
+    renderText(0, 26, speedbuf);
     
     glutSwapBuffers();
 }
@@ -131,13 +158,13 @@ void keybd(unsigned char key, int x, int y)
         break;
         case '+':
             // cout << "Speed up?" << endl;
-            FRAMESPEED += 100;
+            FRAMESPEED *= 1.1;
             updatePeriod = FRAMESPEED / 20;
         break;
         case '-':
             if(FRAMESPEED > 100)
             {
-                FRAMESPEED -= 100;
+                FRAMESPEED /= 1.1;
                 updatePeriod = FRAMESPEED / 20;
             }
         break;
@@ -157,7 +184,7 @@ void mouser(int button, int state, int x, int y)
                 Automaton * spawn = new Automaton(*sandbox[selector]);
                 spawn->posx = x;
                 spawn->posy = y;
-                spawn->name = to_string((long) spawn);
+                spawn->name = sandbox[selector]->name + "_" + to_string((long) spawn);
                 cout << "Spawning in: " << spawn->name << " at " << x << " " << y << endl;
                 spawn->raise();
                 sandbox.push_back(spawn);
@@ -166,14 +193,16 @@ void mouser(int button, int state, int x, int y)
         case WHEEL_UP:
             if(state == GLUT_UP)
             {
-                selector = ((selector-1)%sandbox.size());
+                selector = (selector-1);
+                if(selector < 0)
+                    selector = maxselector - 1;
                 cout << "Now selected: " << sandbox[selector]->name << endl;
             }
         break;
         case WHEEL_DOWN:
             if(state == GLUT_UP)
             {
-                selector = ((selector+1)%sandbox.size());
+                selector = ((selector+1)%maxselector);
                 cout << "Now selected: " << sandbox[selector]->name << endl;
             }
         default:
@@ -251,6 +280,8 @@ int main(int argc, char *argv[])
             return 1;
         }
     }
+    
+    maxselector = sandbox.size();
     
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGB | GLUT_DOUBLE );
