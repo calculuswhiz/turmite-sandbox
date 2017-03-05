@@ -15,6 +15,7 @@ To use:
 - If you have more than one turmite in your ini file, you can select it using the mouse wheel (see terminal output for the name).
 - To speed up/slow down, press `+`/`-` respectively.
 - To quit, press `q`.
+- To pause, press `p`.
 - I've provided a couple ini files for you in `behavior_files/`.
 
 The ini file is structured as follows:
@@ -27,6 +28,10 @@ The ini file is structured as follows:
 
 #Name
 [Name] "name goes here surrounded by junk characters"
+
+#Color
+[Color] red green blue
+# Values provided on a scale of 0-1 (floats)
 
 # Initialization:
 [Start]   xpixel   ypixel  statenumber   orientation

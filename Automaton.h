@@ -20,19 +20,21 @@ public:
     Automaton(const Automaton & a);
     ~Automaton();
     void addState(int nsOff, int nsOn, int tOff, int tOn, bool wOff, bool wOn);
-    int getWColor(bool input);
+    int shouldWrite(bool input);
     bool transition(bool input);
     void kill();
     void raise();
     bool isDead();
     void setDirFromString(string orient);
     int getTurnFromString(string turn);
+    void setColor(float r, float g, float b);
 
     int posx;
     int posy;
     int curState;
     int orientation;
     string name;
+    float color[3];
     
 private:
     vector<Statenode *> states;

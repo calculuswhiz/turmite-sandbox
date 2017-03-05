@@ -7,6 +7,9 @@ Automaton::Automaton()
     orientation = 0;
     alive = true;
     name = to_string((long)this);
+    color[0] = 1.0f;
+    color[1] = 1.0f;
+    color[2] = 1.0f;
 }
 
 Automaton::Automaton(int x, int y=0, int s=0, int o=0)
@@ -17,6 +20,9 @@ Automaton::Automaton(int x, int y=0, int s=0, int o=0)
     orientation = o;
     alive = true;
     name = to_string((long)this);
+    color[0] = 1.0f;
+    color[1] = 1.0f;
+    color[2] = 1.0f;
 }
 
 Automaton::Automaton(const Automaton & a)
@@ -26,6 +32,9 @@ Automaton::Automaton(const Automaton & a)
     curState = a.curState;
     orientation = a.orientation;
     alive = a.alive;
+    color[0] = a.color[0];
+    color[1] = a.color[1];
+    color[2] = a.color[2];
     
     name = "undefined";
     states = *(new vector<Statenode *>(a.states));
@@ -40,7 +49,7 @@ void Automaton::addState(int nsOff, int nsOn, int tOff, int tOn, bool wOff, bool
     states.push_back(sn);
 }
 
-int Automaton::getWColor(bool input)
+int Automaton::shouldWrite(bool input)
 {
     return states[curState]->write[input];
 }
@@ -135,4 +144,11 @@ int Automaton::getTurnFromString(string turn)
     if(turn == "U")
         return U_TURN;
     return -1;
+}
+
+void Automaton::setColor(float r, float g, float b)
+{
+    color[0]=r;
+    color[1]=g;
+    color[2]=b;
 }

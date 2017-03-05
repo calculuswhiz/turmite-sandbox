@@ -10,7 +10,7 @@
 #include "Statenode.h"
 
 #define GRIDW 1024
-#define GRIDH 768
+#define GRIDH 1024
 #define WHEEL_UP    3
 #define WHEEL_DOWN  4
 
@@ -23,6 +23,8 @@ using namespace std;
 vector<Automaton *> sandbox;
 int selector = 0;
 int maxselector = 0;
+bool paused = 0;
+int alive = 0;
 GLfloat grid[GRIDH][GRIDW][3];
 
 bool initGL();
@@ -82,17 +84,25 @@ void update()
     glOrtho(0, aspect, aspect, 0, -1, 1);
     // glOrtho(-aspect, aspect, -1, 1, -1, 1);
     
+    if(paused)
+        return;
+        
+    alive = 0;
     for(vector<Automaton *>::iterator it = sandbox.begin(); it != sandbox.end(); it+=1)
     {
         if((*it)->isDead())
             continue;
         if((*it)->posx>=0 && (*it)->posy>=0 && (*it)->posx < GRIDW && (*it)->posy < GRIDH)
         {
-            GLfloat inputmode = grid[(*it)->posy][(*it)->posx][0];
-            GLfloat paintcolor = (GLfloat)(*it)->getWColor(inputmode);
-            grid[(*it)->posy][(*it)->posx][0] = paintcolor;
-            grid[(*it)->posy][(*it)->posx][1] = paintcolor;
+            GLfloat * cache = grid[(*it)->posy][(*it)->posx];
+            GLfloat inputmode = cache[0] || cache[2] || cache[2];
+            GLfloat shouldpaint = (GLfloat)(*it)->shouldWrite(inputmode);
+            GLfloat * wcolor = (*it)->color;
+            cache[0] = shouldpaint * wcolor[0];
+            cache[1] = shouldpaint * wcolor[1];
+            cache[2] = shouldpaint * wcolor[2];
             (*it)->transition(inputmode);
+            alive += 1;
         }
         else
         {
@@ -138,12 +148,24 @@ void display()
     
     glDrawPixels( GRIDW, GRIDH, GL_RGB, GL_FLOAT, grid );
     
+    // Text data
     char selectionbuf [255];
     char speedbuf[32];
-    sprintf(selectionbuf, "Click will spawn: %s", sandbox[selector]->name.c_str());
+    sprintf(selectionbuf, "%s", sandbox[selector]->name.c_str());
     sprintf(speedbuf, "Speed %d", FRAMESPEED);
-    renderText(0, 13, selectionbuf);
+    renderText(0, 13, "Click will spawn: ");
+    glColor3f(sandbox[selector]->color[0], sandbox[selector]->color[1], sandbox[selector]->color[2]);
+    renderText(8*18, 13, selectionbuf);
+    glColor3f(1, 1, 1);
     renderText(0, 26, speedbuf);
+    char alivetext[4];
+    sprintf(alivetext, "%d", alive);
+    renderText(0,13*3, "Alive: ");
+    renderText(8*7, 13*3 , alivetext);
+    if(paused){
+        char freezu[]= "Za Warudo! Toki wo tomare!";
+        renderText(0,13*4,freezu);
+    }
     
     glutSwapBuffers();
 }
@@ -152,6 +174,9 @@ void keybd(unsigned char key, int x, int y)
 {
     switch(key)
     {
+        case 'p':
+            paused ^= true;
+        break;
         case 'q':
             cout << "Terminating..." << endl;
             exit(0);
@@ -245,6 +270,17 @@ int main(int argc, char *argv[])
             name = name.substr(0, name.size()-1);
             cout << "Name found: " << name << endl;
             addme->name = name;
+        }
+        else if(line.find("[Color]") == 0){
+            stringstream ss;
+            ss.str(line);
+            string temp;
+            float r, g, b;
+            ss >> temp >> r >> g >> b;
+            addme->color[0] = r;
+            addme->color[1] = g;
+            addme->color[2] = b;
+            cout << "Float Color (r,g,b): " << r << " " << g << " " << b << endl;
         }
         else if(line.find("[Start]") == 0){
             stringstream ss;
