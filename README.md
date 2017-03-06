@@ -3,7 +3,7 @@ A fairly versatile turmite generator
 
 Uses opengl to simulate turmites.
 
-Screenshot (from experiment2.ini:
+Screenshot (from experiment2.ini):
 
 ![Golden spiral](https://raw.githubusercontent.com/calculuswhiz/turmite-sandbox/master/spiral.png)
 
@@ -17,6 +17,8 @@ To use:
 - To quit, press `q`.
 - To pause, press `p`.
 - I've provided a couple ini files for you in `behavior_files/`.
+- Also, you can generate an automaton file. Check out `behavior_files/GUImain.py`.
+ - When you hit the Generate button, it will print the INI file code to stdout, so you can redirect the output.
 
 The ini file is structured as follows:
 
