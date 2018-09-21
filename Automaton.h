@@ -36,6 +36,9 @@ public:
     string name;
     float color[3];
     
+    bool silent;
+    int initialOrientation;
+    
 private:
     vector<Statenode *> states;
     bool alive;

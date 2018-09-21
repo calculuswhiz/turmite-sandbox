@@ -5,24 +5,28 @@ Automaton::Automaton()
     posy = 0;
     curState = 0;
     orientation = 0;
+    initialOrientation = 0;
     alive = true;
     name = to_string((long)this);
     color[0] = 1.0f;
     color[1] = 1.0f;
     color[2] = 1.0f;
+    silent = true;
 }
 
-Automaton::Automaton(int x, int y=0, int s=0, int o=0)
+Automaton::Automaton(int x, int y = 0, int s = 0, int o = 0)
 {
     posx = x;
     posy = y;
     curState = s;
     orientation = o;
+    initialOrientation = o;
     alive = true;
     name = to_string((long)this);
     color[0] = 1.0f;
     color[1] = 1.0f;
     color[2] = 1.0f;
+    silent = true;
 }
 
 Automaton::Automaton(const Automaton & a)
@@ -30,7 +34,7 @@ Automaton::Automaton(const Automaton & a)
     posx = a.posx;
     posy = a.posy;
     curState = a.curState;
-    orientation = a.orientation;
+    orientation = a.initialOrientation;
     alive = a.alive;
     color[0] = a.color[0];
     color[1] = a.color[1];
@@ -38,6 +42,7 @@ Automaton::Automaton(const Automaton & a)
     
     name = "undefined";
     states = *(new vector<Statenode *>(a.states));
+    silent = a.silent;
 }
 
 Automaton::~Automaton()
@@ -62,37 +67,45 @@ bool Automaton::transition(bool input)
     }
     switch(states[curState]->turn[input])
     {
-        case(LEFT_TURN):
-            orientation = (orientation+3)%4;
-        break;
-        case(RIGHT_TURN):
-            orientation = (orientation+1)%4;
-        break;
-        case(U_TURN):
-            orientation = (orientation+2)%4;
-        break;
+        case LEFT_TURN:
+            orientation = (orientation + 3) % 4;
+            break;
+        case RIGHT_TURN:
+            orientation = (orientation + 1) % 4;
+            break;
+        case U_TURN:
+            orientation = (orientation + 2) % 4;
+            break;
         default:
-            orientation = (orientation)%4;
-        break;
+            orientation = (orientation ) % 4;
+            break;
     }
     
     switch(orientation)
     {
-        case(NORTH):
+        case NORTH:
             posy -= 1;
-        break;
-        case(EAST):
+            break;
+        case EAST:
             posx += 1;
-        break;
-        case(WEST):
+            break;
+        case WEST:
             posx -= 1;
-        break;
+            break;
         default:
             posy += 1;
-        break;
+            break;
     }
     
+    if (!silent)
+    {
+        cout << posx << " " << posy << " " << curState << " ";
+    }
     curState = states[curState]->next_state[input];
+    if (!silent)
+    {
+        cout << curState << " " << "NESW"[orientation] << endl;
+    }
     return 1;
 }
 
@@ -136,19 +149,27 @@ void Automaton::setDirFromString(string orient)
 int Automaton::getTurnFromString(string turn)
 {
     if(turn == "N")
+    {
         return NO_TURN;
+    }
     if(turn == "L")
+    {
         return LEFT_TURN;
+    }
     if(turn == "R")
+    {
         return RIGHT_TURN;
+    }
     if(turn == "U")
+    {
         return U_TURN;
+    }
     return -1;
 }
 
 void Automaton::setColor(float r, float g, float b)
 {
-    color[0]=r;
-    color[1]=g;
-    color[2]=b;
+    color[0] = r;
+    color[1] = g;
+    color[2] = b;
 }

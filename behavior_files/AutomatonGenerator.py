@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'AutomatonGenerator.ui'
 #
-# Created by: PyQt5 UI code generator 5.8
+# Created by: PyQt5 UI code generator 5.11.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -11,11 +11,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(758, 544)
+        MainWindow.resize(793, 541)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 737, 511))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 771, 511))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -242,22 +242,28 @@ class Ui_MainWindow(object):
         self.addStateBtn.setText(_translate("MainWindow", "&Add State"))
         self.remStateBtn.setText(_translate("MainWindow", "&Remove State"))
         self.generateBtn.setText(_translate("MainWindow", "&Generate"))
-        self.label_13.setText(_translate("MainWindow", "Next (off)"))
-        self.label_15.setText(_translate("MainWindow", "Next (on)"))
-        self.label_16.setText(_translate("MainWindow", "Turn (off)"))
+        self.label_13.setText(_translate("MainWindow", "Next\n"
+"(off)"))
+        self.label_15.setText(_translate("MainWindow", "Next\n"
+"(on)"))
+        self.label_16.setText(_translate("MainWindow", "Turn\n"
+"(off)"))
         self.turnOffCombo.setItemText(0, _translate("MainWindow", "None"))
         self.turnOffCombo.setItemText(1, _translate("MainWindow", "Left"))
         self.turnOffCombo.setItemText(2, _translate("MainWindow", "Right"))
         self.turnOffCombo.setItemText(3, _translate("MainWindow", "U-turn"))
-        self.label_17.setText(_translate("MainWindow", "Turn (on)"))
+        self.label_17.setText(_translate("MainWindow", "Turn\n"
+"(on)"))
         self.turnOnCombo.setItemText(0, _translate("MainWindow", "None"))
         self.turnOnCombo.setItemText(1, _translate("MainWindow", "Left"))
         self.turnOnCombo.setItemText(2, _translate("MainWindow", "Right"))
         self.turnOnCombo.setItemText(3, _translate("MainWindow", "U-turn"))
-        self.label_18.setText(_translate("MainWindow", "Paint (off)"))
+        self.label_18.setText(_translate("MainWindow", "Paint\n"
+"(off)"))
         self.paintOffCombo.setItemText(0, _translate("MainWindow", "Off"))
         self.paintOffCombo.setItemText(1, _translate("MainWindow", "On"))
-        self.label_14.setText(_translate("MainWindow", "Paint (on)"))
+        self.label_14.setText(_translate("MainWindow", "Paint\n"
+"(on)"))
         self.paintOnCombo.setItemText(0, _translate("MainWindow", "Off"))
         self.paintOnCombo.setItemText(1, _translate("MainWindow", "On"))
         self.label.setText(_translate("MainWindow", "S&tart:"))

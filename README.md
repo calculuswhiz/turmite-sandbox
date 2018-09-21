@@ -3,9 +3,12 @@ A fairly versatile turmite generator
 
 Uses opengl to simulate turmites.
 
-Screenshot (from experiment2.ini):
+Screenshot (Golden Spiral from experiment2.ini):
 
 ![Golden spiral](https://raw.githubusercontent.com/calculuswhiz/turmite-sandbox/master/spiral.png)
+
+Screenshot (Rule110.ini with companion Rule110_GridConfig.ini):
+![Rule 110](https://raw.githubusercontent.com/calculuswhiz/turmite-sandbox/master/Rule110.png)
 
 To use:
 - `make`
@@ -20,7 +23,7 @@ To use:
 - Also, you can generate an automaton file. Check out `behavior_files/GUImain.py`.
  - When you hit the Generate button, it will print the INI file code to stdout, so you can redirect the output.
 
-The ini file is structured as follows:
+The turmite ini file is structured as follows:
 
 ```
 #Comment
@@ -35,7 +38,7 @@ The ini file is structured as follows:
 [Color] red green blue
 # Values provided on a scale of 0-1 (floats)
 
-# Initialization:
+#Initialization:
 [Start]   xpixel   ypixel  statenumber   orientation
 # xpixel - the starting x pixel value
 # ypixel - starting y pixel value
@@ -52,7 +55,22 @@ The ini file is structured as follows:
 # onpaint - 1 or 0. Turn cell on or off if cell is on.
 # Issue [State] again to push another state
 
+#Turn on debugging output
+[Debug]
+
 #Finally, finish constructing the turmite. To construct another, simply copy an [Automaton][/Automaton] block.
 [/Automaton]
 ```
 
+The grid configuration ini file is structured as follows:
+
+```
+#Comment
+
+#Color
+[Color] red green blue
+# From 0-1
+
+# Specify a range of cells to turn on. You can define a rectangle this way:
+[Rect] x y w h
+```

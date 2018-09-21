@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>758</width>
-    <height>544</height>
+    <width>793</width>
+    <height>541</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>737</width>
+      <width>771</width>
       <height>511</height>
      </rect>
     </property>
@@ -58,7 +58,8 @@
            <item>
             <widget class="QLabel" name="label_13">
              <property name="text">
-              <string>Next (off)</string>
+              <string>Next
+(off)</string>
              </property>
              <property name="buddy">
               <cstring></cstring>
@@ -75,7 +76,8 @@
            <item>
             <widget class="QLabel" name="label_15">
              <property name="text">
-              <string>Next (on)</string>
+              <string>Next
+(on)</string>
              </property>
              <property name="buddy">
               <cstring></cstring>
@@ -92,7 +94,8 @@
            <item>
             <widget class="QLabel" name="label_16">
              <property name="text">
-              <string>Turn (off)</string>
+              <string>Turn
+(off)</string>
              </property>
              <property name="buddy">
               <cstring></cstring>
@@ -130,7 +133,8 @@
            <item>
             <widget class="QLabel" name="label_17">
              <property name="text">
-              <string>Turn (on)</string>
+              <string>Turn
+(on)</string>
              </property>
              <property name="buddy">
               <cstring></cstring>
@@ -168,7 +172,8 @@
            <item>
             <widget class="QLabel" name="label_18">
              <property name="text">
-              <string>Paint (off)</string>
+              <string>Paint
+(off)</string>
              </property>
              <property name="buddy">
               <cstring></cstring>
@@ -196,7 +201,8 @@
            <item>
             <widget class="QLabel" name="label_14">
              <property name="text">
-              <string>Paint (on)</string>
+              <string>Paint
+(on)</string>
              </property>
              <property name="buddy">
               <cstring></cstring>
