@@ -3,17 +3,18 @@ A fairly versatile turmite generator
 
 Uses opengl to simulate turmites.
 
-Screenshot (Golden Spiral from experiment2.ini):
-
+Screenshot (2-state Golden Spiral from experiment.ini):
 ![Golden spiral](https://raw.githubusercontent.com/calculuswhiz/turmite-sandbox/master/spiral.png)
 
-Screenshot (Rule110.ini with companion Rule110_GridConfig.ini):
+Screenshot (40-state Rule 110 simulation. Rule110.ini with companion Rule110_GridConfig.ini):
 ![Rule 110](https://raw.githubusercontent.com/calculuswhiz/turmite-sandbox/master/Rule110.png)
 The reason the aspect ratio is 2:1 is because two pixels were used to encode data horizontally:
 - 00 = 0
 - 11 = 1
 - 01 = START
 - 10 = END
+
+Also the grid config was added to prevent having to hard code it.
 
 To use:
 - `make`
