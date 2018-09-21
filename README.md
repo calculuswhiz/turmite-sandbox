@@ -9,6 +9,11 @@ Screenshot (Golden Spiral from experiment2.ini):
 
 Screenshot (Rule110.ini with companion Rule110_GridConfig.ini):
 ![Rule 110](https://raw.githubusercontent.com/calculuswhiz/turmite-sandbox/master/Rule110.png)
+The reason the aspect ratio is 2:1 is because two pixels were used to encode data horizontally:
+- 00 = 0
+- 11 = 1
+- 01 = START
+- 10 = END
 
 To use:
 - `make`
